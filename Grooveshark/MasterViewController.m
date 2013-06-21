@@ -12,8 +12,12 @@
 
 @interface MasterViewController () {
     NSMutableArray *songs;
-    NSURLConnection *connection;
+    NSInteger musicNo;
+    NSURLConnection *connectionForGetSongs;
+    NSURLConnection *connectionForPlaySong;
     NSMutableData *data;
+    AVAudioPlayer *audioPlayer;
+    AVAudioPlayer *nextAudioPlayer;
 }
 @end
 
@@ -28,16 +32,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.title = @"Ryo's Favorite";
     
     songs = [[NSMutableArray alloc] init];
-    NSString *apiUrl = @"http://rails-grooveshark-app.herokuapp.com/songs";
+    NSString *apiUrl = @"http://0.0.0.0:3000/favorites";
     NSURL *url = [NSURL URLWithString: apiUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    connectionForGetSongs = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
@@ -52,10 +54,15 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection;
 {
-    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUnicodeStringEncoding];
-    songs = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingAllowFragments error:nil];
-    [self.tableView reloadData];
+    if (_connection == connectionForGetSongs) {
+        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSData *jsonData = [jsonString dataUsingEncoding:NSUnicodeStringEncoding];
+        songs = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingAllowFragments error:nil];
+        [self.tableView reloadData];
+    } else if (_connection == connectionForPlaySong) {
+        nextAudioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
+        [nextAudioPlayer prepareToPlay];
+    }
 }
 
 
@@ -83,16 +90,77 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *song = songs[indexPath.row];
-    cell.textLabel.text = [song description];
+    NSDictionary *song = [[NSDictionary alloc] initWithDictionary:[songs objectAtIndex:indexPath.row]];
+    cell.textLabel.text = [song valueForKey:@"songName"];
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (indexPath.row == musicNo) {
+        if (audioPlayer.playing == NO) {
+            [audioPlayer play];
+        } else {
+            [audioPlayer pause];
+        }
+    } else {
+        musicNo = indexPath.row;
+        [self playSong:musicNo];
+    }
 }
+
+- (void)playSong:(NSInteger)index
+{
+    NSDictionary *song = [[NSDictionary alloc] initWithDictionary:[songs objectAtIndex:index]];
+    NSString *songID = [song valueForKey:@"songID"];
+    //    NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
+    NSString *songURL = [NSString stringWithFormat:@"http://0.0.0.0:3000/songs/%@", songID];
+    songURL = [songURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:songURL]];
+    connectionForPlaySong = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+}
+
+- (void)dispatchTimer
+{
+    dispatch_queue_t queue = dispatch_queue_create("timerQueue", 0);
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_event_handler(timer, ^{
+        NSLog(@"%f", audioPlayer.currentTime);
+//        if (audioPlayer.duration - audioPlayer.currentTime < 30.0) {
+        if (audioPlayer.currentTime > 10.0) {
+//            dispatch_source_cancel(timer);
+            NSLog(@"musciNoを更新します %d >> %d", musicNo, musicNo + 1);
+            musicNo = musicNo + 1;
+            [self playSong:musicNo];
+        }
+        if (audioPlayer.currentTime > 30.0) {
+            [audioPlayer stop];
+        }
+        if (audioPlayer.playing == NO) {
+            dispatch_source_cancel(timer);
+            NSLog(@"Timer Stop Now !!");
+            audioPlayer = nextAudioPlayer;
+            [audioPlayer play];
+            [self dispatchTimer];
+        }
+        
+    });
+    
+    dispatch_source_set_cancel_handler(timer, ^{
+        printf("end\n");
+    });
+    
+    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 0);
+    uint64_t interval = NSEC_PER_SEC; // 1 sec
+    
+    dispatch_source_set_timer(timer, start, interval, 0);
+    
+    printf("start\n");
+    
+    dispatch_resume(timer);
+}
+
+
 
 /*
 // Override to support rearranging the table view.
@@ -110,6 +178,7 @@
 }
 */
 
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
@@ -118,5 +187,6 @@
         [[segue destinationViewController] setDetailItem:song];
     }
 }
-
+*/
+ 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface MasterViewController : UITableViewController
+@interface MasterViewController : UITableViewController <AVAudioPlayerDelegate, AVAudioSessionDelegate>
 
 @end

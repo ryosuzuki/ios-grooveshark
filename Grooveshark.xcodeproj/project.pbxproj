@@ -24,6 +24,7 @@
 		2AD58F4E17742104004D4B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2617742104004D4B65 /* Foundation.framework */; };
 		2AD58F5617742104004D4B65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F5417742104004D4B65 /* InfoPlist.strings */; };
 		2AD58F5917742104004D4B65 /* GroovesharkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F5817742104004D4B65 /* GroovesharkTests.m */; };
+		2AD58F6317742A26004D4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F6217742A26004D4B65 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		2AD58F5517742104004D4B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2AD58F5717742104004D4B65 /* GroovesharkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroovesharkTests.h; sourceTree = "<group>"; };
 		2AD58F5817742104004D4B65 /* GroovesharkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroovesharkTests.m; sourceTree = "<group>"; };
+		2AD58F6217742A26004D4B65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD58F6317742A26004D4B65 /* AVFoundation.framework in Frameworks */,
 				2AD58F2517742104004D4B65 /* UIKit.framework in Frameworks */,
 				2AD58F2717742104004D4B65 /* Foundation.framework in Frameworks */,
 				2AD58F2917742104004D4B65 /* CoreGraphics.framework in Frameworks */,
@@ -109,6 +112,7 @@
 		2AD58F2317742104004D4B65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2AD58F6217742A26004D4B65 /* AVFoundation.framework */,
 				2AD58F2417742104004D4B65 /* UIKit.framework */,
 				2AD58F2617742104004D4B65 /* Foundation.framework */,
 				2AD58F2817742104004D4B65 /* CoreGraphics.framework */,
