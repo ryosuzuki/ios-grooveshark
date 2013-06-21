@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AD58F2517742104004D4B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2417742104004D4B65 /* UIKit.framework */; };
+		2AD58F2717742104004D4B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2617742104004D4B65 /* Foundation.framework */; };
+		2AD58F2917742104004D4B65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2817742104004D4B65 /* CoreGraphics.framework */; };
+		2AD58F2F17742104004D4B65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F2D17742104004D4B65 /* InfoPlist.strings */; };
+		2AD58F3117742104004D4B65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F3017742104004D4B65 /* main.m */; };
+		2AD58F3517742104004D4B65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F3417742104004D4B65 /* AppDelegate.m */; };
+		2AD58F3717742104004D4B65 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F3617742104004D4B65 /* Default.png */; };
+		2AD58F3917742104004D4B65 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F3817742104004D4B65 /* Default@2x.png */; };
+		2AD58F3B17742104004D4B65 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F3A17742104004D4B65 /* Default-568h@2x.png */; };
+		2AD58F3E17742104004D4B65 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F3C17742104004D4B65 /* MainStoryboard.storyboard */; };
+		2AD58F4117742104004D4B65 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F4017742104004D4B65 /* MasterViewController.m */; };
+		2AD58F4417742104004D4B65 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F4317742104004D4B65 /* DetailViewController.m */; };
+		2AD58F4C17742104004D4B65 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F4B17742104004D4B65 /* SenTestingKit.framework */; };
+		2AD58F4D17742104004D4B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2417742104004D4B65 /* UIKit.framework */; };
+		2AD58F4E17742104004D4B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2617742104004D4B65 /* Foundation.framework */; };
+		2AD58F5617742104004D4B65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2AD58F5417742104004D4B65 /* InfoPlist.strings */; };
+		2AD58F5917742104004D4B65 /* GroovesharkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD58F5817742104004D4B65 /* GroovesharkTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AD58F4F17742104004D4B65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AD58F1917742104004D4B65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AD58F2017742104004D4B65;
+			remoteInfo = Grooveshark;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2AD58F2117742104004D4B65 /* Grooveshark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grooveshark.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD58F2417742104004D4B65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2AD58F2617742104004D4B65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AD58F2817742104004D4B65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2AD58F2C17742104004D4B65 /* Grooveshark-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grooveshark-Info.plist"; sourceTree = "<group>"; };
+		2AD58F2E17742104004D4B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2AD58F3017742104004D4B65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2AD58F3217742104004D4B65 /* Grooveshark-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grooveshark-Prefix.pch"; sourceTree = "<group>"; };
+		2AD58F3317742104004D4B65 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2AD58F3417742104004D4B65 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2AD58F3617742104004D4B65 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		2AD58F3817742104004D4B65 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		2AD58F3A17742104004D4B65 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2AD58F3D17742104004D4B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		2AD58F3F17742104004D4B65 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		2AD58F4017742104004D4B65 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		2AD58F4217742104004D4B65 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		2AD58F4317742104004D4B65 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		2AD58F4A17742104004D4B65 /* GroovesharkTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroovesharkTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD58F4B17742104004D4B65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		2AD58F5317742104004D4B65 /* GroovesharkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GroovesharkTests-Info.plist"; sourceTree = "<group>"; };
+		2AD58F5517742104004D4B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2AD58F5717742104004D4B65 /* GroovesharkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroovesharkTests.h; sourceTree = "<group>"; };
+		2AD58F5817742104004D4B65 /* GroovesharkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroovesharkTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD58F1E17742104004D4B65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F2517742104004D4B65 /* UIKit.framework in Frameworks */,
+				2AD58F2717742104004D4B65 /* Foundation.framework in Frameworks */,
+				2AD58F2917742104004D4B65 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD58F4617742104004D4B65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F4C17742104004D4B65 /* SenTestingKit.framework in Frameworks */,
+				2AD58F4D17742104004D4B65 /* UIKit.framework in Frameworks */,
+				2AD58F4E17742104004D4B65 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2AD58F1817742104004D4B65 = {
+			isa = PBXGroup;
+			children = (
+				2AD58F2A17742104004D4B65 /* Grooveshark */,
+				2AD58F5117742104004D4B65 /* GroovesharkTests */,
+				2AD58F2317742104004D4B65 /* Frameworks */,
+				2AD58F2217742104004D4B65 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2AD58F2217742104004D4B65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F2117742104004D4B65 /* Grooveshark.app */,
+				2AD58F4A17742104004D4B65 /* GroovesharkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD58F2317742104004D4B65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F2417742104004D4B65 /* UIKit.framework */,
+				2AD58F2617742104004D4B65 /* Foundation.framework */,
+				2AD58F2817742104004D4B65 /* CoreGraphics.framework */,
+				2AD58F4B17742104004D4B65 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD58F2A17742104004D4B65 /* Grooveshark */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F3317742104004D4B65 /* AppDelegate.h */,
+				2AD58F3417742104004D4B65 /* AppDelegate.m */,
+				2AD58F3C17742104004D4B65 /* MainStoryboard.storyboard */,
+				2AD58F3F17742104004D4B65 /* MasterViewController.h */,
+				2AD58F4017742104004D4B65 /* MasterViewController.m */,
+				2AD58F4217742104004D4B65 /* DetailViewController.h */,
+				2AD58F4317742104004D4B65 /* DetailViewController.m */,
+				2AD58F2B17742104004D4B65 /* Supporting Files */,
+			);
+			path = Grooveshark;
+			sourceTree = "<group>";
+		};
+		2AD58F2B17742104004D4B65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F2C17742104004D4B65 /* Grooveshark-Info.plist */,
+				2AD58F2D17742104004D4B65 /* InfoPlist.strings */,
+				2AD58F3017742104004D4B65 /* main.m */,
+				2AD58F3217742104004D4B65 /* Grooveshark-Prefix.pch */,
+				2AD58F3617742104004D4B65 /* Default.png */,
+				2AD58F3817742104004D4B65 /* Default@2x.png */,
+				2AD58F3A17742104004D4B65 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AD58F5117742104004D4B65 /* GroovesharkTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F5717742104004D4B65 /* GroovesharkTests.h */,
+				2AD58F5817742104004D4B65 /* GroovesharkTests.m */,
+				2AD58F5217742104004D4B65 /* Supporting Files */,
+			);
+			path = GroovesharkTests;
+			sourceTree = "<group>";
+		};
+		2AD58F5217742104004D4B65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD58F5317742104004D4B65 /* GroovesharkTests-Info.plist */,
+				2AD58F5417742104004D4B65 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AD58F2017742104004D4B65 /* Grooveshark */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD58F5C17742104004D4B65 /* Build configuration list for PBXNativeTarget "Grooveshark" */;
+			buildPhases = (
+				2AD58F1D17742104004D4B65 /* Sources */,
+				2AD58F1E17742104004D4B65 /* Frameworks */,
+				2AD58F1F17742104004D4B65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Grooveshark;
+			productName = Grooveshark;
+			productReference = 2AD58F2117742104004D4B65 /* Grooveshark.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2AD58F4917742104004D4B65 /* GroovesharkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD58F5F17742104004D4B65 /* Build configuration list for PBXNativeTarget "GroovesharkTests" */;
+			buildPhases = (
+				2AD58F4517742104004D4B65 /* Sources */,
+				2AD58F4617742104004D4B65 /* Frameworks */,
+				2AD58F4717742104004D4B65 /* Resources */,
+				2AD58F4817742104004D4B65 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AD58F5017742104004D4B65 /* PBXTargetDependency */,
+			);
+			name = GroovesharkTests;
+			productName = GroovesharkTests;
+			productReference = 2AD58F4A17742104004D4B65 /* GroovesharkTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2AD58F1917742104004D4B65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Ryo Suzuki";
+			};
+			buildConfigurationList = 2AD58F1C17742104004D4B65 /* Build configuration list for PBXProject "Grooveshark" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2AD58F1817742104004D4B65;
+			productRefGroup = 2AD58F2217742104004D4B65 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AD58F2017742104004D4B65 /* Grooveshark */,
+				2AD58F4917742104004D4B65 /* GroovesharkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AD58F1F17742104004D4B65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F2F17742104004D4B65 /* InfoPlist.strings in Resources */,
+				2AD58F3717742104004D4B65 /* Default.png in Resources */,
+				2AD58F3917742104004D4B65 /* Default@2x.png in Resources */,
+				2AD58F3B17742104004D4B65 /* Default-568h@2x.png in Resources */,
+				2AD58F3E17742104004D4B65 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD58F4717742104004D4B65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F5617742104004D4B65 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2AD58F4817742104004D4B65 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD58F1D17742104004D4B65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F3117742104004D4B65 /* main.m in Sources */,
+				2AD58F3517742104004D4B65 /* AppDelegate.m in Sources */,
+				2AD58F4117742104004D4B65 /* MasterViewController.m in Sources */,
+				2AD58F4417742104004D4B65 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AD58F4517742104004D4B65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD58F5917742104004D4B65 /* GroovesharkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2AD58F5017742104004D4B65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AD58F2017742104004D4B65 /* Grooveshark */;
+			targetProxy = 2AD58F4F17742104004D4B65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2AD58F2D17742104004D4B65 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AD58F2E17742104004D4B65 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2AD58F3C17742104004D4B65 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AD58F3D17742104004D4B65 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		2AD58F5417742104004D4B65 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2AD58F5517742104004D4B65 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2AD58F5A17742104004D4B65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2AD58F5B17742104004D4B65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2AD58F5D17742104004D4B65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
+				INFOPLIST_FILE = "Grooveshark/Grooveshark-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2AD58F5E17742104004D4B65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
+				INFOPLIST_FILE = "Grooveshark/Grooveshark-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2AD58F6017742104004D4B65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grooveshark.app/Grooveshark";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
+				INFOPLIST_FILE = "GroovesharkTests/GroovesharkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		2AD58F6117742104004D4B65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grooveshark.app/Grooveshark";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
+				INFOPLIST_FILE = "GroovesharkTests/GroovesharkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AD58F1C17742104004D4B65 /* Build configuration list for PBXProject "Grooveshark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD58F5A17742104004D4B65 /* Debug */,
+				2AD58F5B17742104004D4B65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AD58F5C17742104004D4B65 /* Build configuration list for PBXNativeTarget "Grooveshark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD58F5D17742104004D4B65 /* Debug */,
+				2AD58F5E17742104004D4B65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AD58F5F17742104004D4B65 /* Build configuration list for PBXNativeTarget "GroovesharkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD58F6017742104004D4B65 /* Debug */,
+				2AD58F6117742104004D4B65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2AD58F1917742104004D4B65 /* Project object */;
+}
