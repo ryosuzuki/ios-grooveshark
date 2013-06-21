@@ -17,7 +17,7 @@
     NSURLConnection *connectionForPlaySong;
     NSMutableData *data;
     AVAudioPlayer *audioPlayer;
-    AVAudioPlayer *nextAudioPlayer;
+    AVAudioPlayer *currentAudioPlayer;
 }
 @end
 
@@ -35,7 +35,9 @@
     
     self.title = @"Ryo's Favorite";
     
+    musicNo = 0;
     songs = [[NSMutableArray alloc] init];
+    currentAudioPlayer = NULL;
     NSString *apiUrl = @"http://0.0.0.0:3000/favorites";
     NSURL *url = [NSURL URLWithString: apiUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -44,11 +46,13 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 {
+    NSLog(@"Receive Response");
     data = [[NSMutableData alloc] initWithData:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)_data;
 {
+    NSLog(@"Receive Data");
 	[data appendData:_data];
 }
 
@@ -60,8 +64,14 @@
         songs = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingAllowFragments error:nil];
         [self.tableView reloadData];
     } else if (_connection == connectionForPlaySong) {
-        nextAudioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
-        [nextAudioPlayer prepareToPlay];
+        NSLog(@"Finish Load Song");
+        audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
+        [audioPlayer prepareToPlay];
+        if (currentAudioPlayer == NULL) {
+            currentAudioPlayer = audioPlayer;
+            [currentAudioPlayer play];
+            [self dispatchTimer];
+        }
     }
 }
 
@@ -98,10 +108,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == musicNo) {
-        if (audioPlayer.playing == NO) {
-            [audioPlayer play];
+        if (currentAudioPlayer.playing == NO) {
+            [currentAudioPlayer play];
         } else {
-            [audioPlayer pause];
+            [currentAudioPlayer pause];
         }
     } else {
         musicNo = indexPath.row;
@@ -116,6 +126,7 @@
     //    NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
     NSString *songURL = [NSString stringWithFormat:@"http://0.0.0.0:3000/songs/%@", songID];
     songURL = [songURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@", songURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:songURL]];
     connectionForPlaySong = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
@@ -125,23 +136,27 @@
     dispatch_queue_t queue = dispatch_queue_create("timerQueue", 0);
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_event_handler(timer, ^{
-        NSLog(@"%f", audioPlayer.currentTime);
 //        if (audioPlayer.duration - audioPlayer.currentTime < 30.0) {
-        if (audioPlayer.currentTime > 10.0) {
-//            dispatch_source_cancel(timer);
-            NSLog(@"musciNoを更新します %d >> %d", musicNo, musicNo + 1);
+        NSInteger current = (int)currentAudioPlayer.currentTime;
+        NSInteger remain = (int)(currentAudioPlayer.duration - currentAudioPlayer.currentTime);
+        NSLog(@"%i", current);
+        if (remain == 60) {
             musicNo = musicNo + 1;
-            [self playSong:musicNo];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                dispatch_async(dispatch_get_main_queue(),^{
+                    [self playSong:musicNo];
+                });
+            });
         }
-        if (audioPlayer.currentTime > 30.0) {
-            [audioPlayer stop];
+        if (remain == 1) {
+            [currentAudioPlayer stop];
+            currentAudioPlayer = audioPlayer;
+            [currentAudioPlayer play];
+            [self dispatchTimer];
         }
-        if (audioPlayer.playing == NO) {
+        if (currentAudioPlayer.playing == NO) {
             dispatch_source_cancel(timer);
             NSLog(@"Timer Stop Now !!");
-            audioPlayer = nextAudioPlayer;
-            [audioPlayer play];
-            [self dispatchTimer];
         }
         
     });
