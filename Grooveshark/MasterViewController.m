@@ -38,7 +38,7 @@
     musicNo = 0;
     songs = [[NSMutableArray alloc] init];
     currentAudioPlayer = NULL;
-    NSString *apiUrl = @"http://0.0.0.0:3000/favorites";
+    NSString *apiUrl = @"https://rails-grooveshark-app.herokuapp.com/favorites";
     NSURL *url = [NSURL URLWithString: apiUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     connectionForGetSongs = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -110,6 +110,7 @@
     if (indexPath.row == musicNo) {
         if (currentAudioPlayer.playing == NO) {
             [currentAudioPlayer play];
+            [self dispatchTimer];
         } else {
             [currentAudioPlayer pause];
         }
@@ -124,7 +125,7 @@
     NSDictionary *song = [[NSDictionary alloc] initWithDictionary:[songs objectAtIndex:index]];
     NSString *songID = [song valueForKey:@"songID"];
     //    NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
-    NSString *songURL = [NSString stringWithFormat:@"http://0.0.0.0:3000/songs/%@", songID];
+    NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
     songURL = [songURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@", songURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:songURL]];
@@ -149,14 +150,20 @@
             });
         }
         if (remain == 1) {
+            /*
             [currentAudioPlayer stop];
             currentAudioPlayer = audioPlayer;
             [currentAudioPlayer play];
             [self dispatchTimer];
+            */
         }
         if (currentAudioPlayer.playing == NO) {
             dispatch_source_cancel(timer);
             NSLog(@"Timer Stop Now !!");
+            [currentAudioPlayer stop];
+            currentAudioPlayer = audioPlayer;
+            [currentAudioPlayer play];
+            [self dispatchTimer];
         }
         
     });

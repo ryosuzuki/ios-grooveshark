@@ -391,10 +391,14 @@
 		2AD58F5D17742104004D4B65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryo Suzuki (EN355VZFSZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ryo Suzuki (EN355VZFSZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
 				INFOPLIST_FILE = "Grooveshark/Grooveshark-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C8D3AB00-A1FB-416C-864B-67EF8A069749";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8D3AB00-A1FB-416C-864B-67EF8A069749";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -402,10 +406,14 @@
 		2AD58F5E17742104004D4B65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryo Suzuki (EN355VZFSZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ryo Suzuki (EN355VZFSZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grooveshark/Grooveshark-Prefix.pch";
 				INFOPLIST_FILE = "Grooveshark/Grooveshark-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C8D3AB00-A1FB-416C-864B-67EF8A069749";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8D3AB00-A1FB-416C-864B-67EF8A069749";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -463,6 +471,7 @@
 				2AD58F5E17742104004D4B65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AD58F5F17742104004D4B65 /* Build configuration list for PBXNativeTarget "GroovesharkTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +480,7 @@
 				2AD58F6117742104004D4B65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
