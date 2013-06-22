@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1D9DB7177556AD00757805 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D9DB6177556AD00757805 /* LoadingView.m */; };
 		2AD58F2517742104004D4B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2417742104004D4B65 /* UIKit.framework */; };
 		2AD58F2717742104004D4B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2617742104004D4B65 /* Foundation.framework */; };
 		2AD58F2917742104004D4B65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD58F2817742104004D4B65 /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A1D9DB5177556AD00757805 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
+		2A1D9DB6177556AD00757805 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		2AD58F2117742104004D4B65 /* Grooveshark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grooveshark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD58F2417742104004D4B65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2AD58F2617742104004D4B65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 				2AD58F3C17742104004D4B65 /* MainStoryboard.storyboard */,
 				2AD58F3F17742104004D4B65 /* MasterViewController.h */,
 				2AD58F4017742104004D4B65 /* MasterViewController.m */,
+				2A1D9DB5177556AD00757805 /* LoadingView.h */,
+				2A1D9DB6177556AD00757805 /* LoadingView.m */,
 				2AD58F4217742104004D4B65 /* DetailViewController.h */,
 				2AD58F4317742104004D4B65 /* DetailViewController.m */,
 				2AD58F2B17742104004D4B65 /* Supporting Files */,
@@ -283,6 +288,7 @@
 				2AD58F3517742104004D4B65 /* AppDelegate.m in Sources */,
 				2AD58F4117742104004D4B65 /* MasterViewController.m in Sources */,
 				2AD58F4417742104004D4B65 /* DetailViewController.m in Sources */,
+				2A1D9DB7177556AD00757805 /* LoadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

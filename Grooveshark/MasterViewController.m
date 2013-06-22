@@ -12,12 +12,15 @@
 
 @interface MasterViewController () {
     NSMutableArray *songs;
-    NSInteger musicNo;
     NSURLConnection *connectionForGetSongs;
     NSURLConnection *connectionForPlaySong;
     NSMutableData *data;
-    AVAudioPlayer *audioPlayer;
+    NSInteger currentIndex;
+    NSInteger nextIndex;
     AVAudioPlayer *currentAudioPlayer;
+    AVAudioPlayer *nextAudioPlayer;
+
+    LoadingView *loadingView;
 }
 @end
 
@@ -35,9 +38,15 @@
     
     self.title = @"Ryo's Favorite";
     
-    musicNo = 0;
+    currentIndex = -1;
+    nextIndex = -1;
     songs = [[NSMutableArray alloc] init];
     currentAudioPlayer = NULL;
+    loadingView = [[LoadingView alloc] initWithFrame:self.view.frame];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(nowPlaying:) userInfo:nil repeats:YES ];
+    [timer fire];
+    
     NSString *apiUrl = @"https://rails-grooveshark-app.herokuapp.com/favorites";
     NSURL *url = [NSURL URLWithString: apiUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -65,17 +74,17 @@
         [self.tableView reloadData];
     } else if (_connection == connectionForPlaySong) {
         NSLog(@"Finish Load Song");
-        audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
-        [audioPlayer prepareToPlay];
+        nextAudioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
+        [nextAudioPlayer prepareToPlay];
         if (currentAudioPlayer == NULL) {
-            currentAudioPlayer = audioPlayer;
+            [loadingView removeFromSuperview];
+            self.tableView.scrollEnabled = YES;
+            
+            currentAudioPlayer = nextAudioPlayer;
             [currentAudioPlayer play];
-            [self dispatchTimer];
         }
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -107,16 +116,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == musicNo) {
+    if (indexPath.row == currentIndex) {
         if (currentAudioPlayer.playing == NO) {
             [currentAudioPlayer play];
-            [self dispatchTimer];
         } else {
             [currentAudioPlayer pause];
         }
     } else {
-        musicNo = indexPath.row;
-        [self playSong:musicNo];
+        currentIndex = indexPath.row;
+        if (currentAudioPlayer != NULL) {
+            [currentAudioPlayer stop];
+            currentAudioPlayer = NULL;
+        }
+        [self playSong:currentIndex];
+        
+        [self.tableView addSubview:loadingView];
+        self.tableView.scrollEnabled = NO;
     }
 }
 
@@ -132,57 +147,25 @@
     connectionForPlaySong = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)dispatchTimer
+- (void)nowPlaying:(NSTimer *)timer
 {
-    dispatch_queue_t queue = dispatch_queue_create("timerQueue", 0);
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_source_set_event_handler(timer, ^{
-//        if (audioPlayer.duration - audioPlayer.currentTime < 30.0) {
+    if (currentAudioPlayer.playing == YES) {
         NSInteger current = (int)currentAudioPlayer.currentTime;
         NSInteger remain = (int)(currentAudioPlayer.duration - currentAudioPlayer.currentTime);
-        NSLog(@"%i", current);
-        if (remain == 60) {
-            musicNo = musicNo + 1;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                dispatch_async(dispatch_get_main_queue(),^{
-                    [self playSong:musicNo];
-                });
-            });
+        NSLog(@"Current: %i - Remain : %i", current, remain);
+        if (remain < 60 & nextIndex != currentIndex + 1) {
+            nextIndex = currentIndex + 1;
+            [self playSong:nextIndex];
         }
-        if (remain == 1) {
-            /*
+        if (remain == 0) {
             [currentAudioPlayer stop];
-            currentAudioPlayer = audioPlayer;
+            currentAudioPlayer = nextAudioPlayer;
             [currentAudioPlayer play];
-            [self dispatchTimer];
-            */
         }
-        if (currentAudioPlayer.playing == NO) {
-            dispatch_source_cancel(timer);
-            NSLog(@"Timer Stop Now !!");
-            [currentAudioPlayer stop];
-            currentAudioPlayer = audioPlayer;
-            [currentAudioPlayer play];
-            [self dispatchTimer];
-        }
-        
-    });
-    
-    dispatch_source_set_cancel_handler(timer, ^{
-        printf("end\n");
-    });
-    
-    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 0);
-    uint64_t interval = NSEC_PER_SEC; // 1 sec
-    
-    dispatch_source_set_timer(timer, start, interval, 0);
-    
-    printf("start\n");
-    
-    dispatch_resume(timer);
+    } else {
+        NSLog(@"Timer Running");
+    }
 }
-
-
 
 /*
 // Override to support rearranging the table view.
