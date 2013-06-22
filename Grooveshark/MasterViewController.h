@@ -12,4 +12,6 @@
 
 @interface MasterViewController : UITableViewController <AVAudioPlayerDelegate, AVAudioSessionDelegate>
 
+- (void)nextSong;
+
 @end

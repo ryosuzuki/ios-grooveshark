@@ -8,8 +8,12 @@
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
-- (void)configureView;
+#import "AppDelegate.h"
+#import "MasterViewController.h"
+
+@interface DetailViewController () {
+    AppDelegate *appDelegate;
+}
 @end
 
 @implementation DetailViewController
@@ -29,9 +33,7 @@
 - (void)configureView
 {
     // Update the user interface for the detail item.
-
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
     }
 }
 
@@ -40,7 +42,52 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(nowPlaying:) userInfo:nil repeats:YES ];
+    [timer fire];
+    
+    [self.pauseButton addTarget:self action:@selector(pauseButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.prevButton addTarget:self action:@selector(prevButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextButton addTarget:self action:@selector(nextButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
+
+- (void)pauseButtonTapped:(id)sender
+{
+    if (appDelegate.currentAudioPlayer.playing == YES) {
+        [appDelegate.currentAudioPlayer pause];
+        [self.pauseButton setTitle:@"Play" forState:UIControlStateNormal];
+    } else {
+        [appDelegate.currentAudioPlayer play];
+        [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+    }
+}
+
+- (void)prevButtonTapped:(id)sender
+{
+    appDelegate.currentAudioPlayer.currentTime = 0;
+}
+
+- (void)nextButtonTapped:(id)sender
+{
+    MasterViewController *masterViewController = [[MasterViewController alloc] init];
+    [masterViewController nextSong];
+}
+
+- (void)nowPlaying:(NSTimer *)timer
+{
+    NSInteger current = (int)appDelegate.currentAudioPlayer.currentTime;
+    NSInteger duration = (int)appDelegate.currentAudioPlayer.duration;
+    self.current.text = [NSString stringWithFormat:@"Current: %i / Duration: %i", current, duration];
+
+    NSDictionary *song = appDelegate.currentSong;
+    self.songName.text = [song valueForKey:@"songName"];
+    self.artistName.text = [song valueForKey:@"artistName"];
+    self.albumName.text = [song valueForKey:@"albumName"];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

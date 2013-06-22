@@ -132,10 +132,10 @@
 				2AD58F3C17742104004D4B65 /* MainStoryboard.storyboard */,
 				2AD58F3F17742104004D4B65 /* MasterViewController.h */,
 				2AD58F4017742104004D4B65 /* MasterViewController.m */,
-				2A1D9DB5177556AD00757805 /* LoadingView.h */,
-				2A1D9DB6177556AD00757805 /* LoadingView.m */,
 				2AD58F4217742104004D4B65 /* DetailViewController.h */,
 				2AD58F4317742104004D4B65 /* DetailViewController.m */,
+				2A1D9DB5177556AD00757805 /* LoadingView.h */,
+				2A1D9DB6177556AD00757805 /* LoadingView.m */,
 				2AD58F2B17742104004D4B65 /* Supporting Files */,
 			);
 			path = Grooveshark;

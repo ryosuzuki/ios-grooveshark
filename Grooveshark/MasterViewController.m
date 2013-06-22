@@ -8,19 +8,21 @@
 
 #import "MasterViewController.h"
 
+#import "AppDelegate.h"
 #import "DetailViewController.h"
 
 @interface MasterViewController () {
     NSMutableArray *songs;
+
     NSURLConnection *connectionForGetSongs;
     NSURLConnection *connectionForPlaySong;
-    NSMutableData *data;
+    NSMutableData *dataForGetSongs;
+    NSMutableData *dataForPlaySong;
+    
     NSInteger currentIndex;
-    NSInteger nextIndex;
-    AVAudioPlayer *currentAudioPlayer;
-    AVAudioPlayer *nextAudioPlayer;
-
-    LoadingView *loadingView;
+    NSInteger duration;
+    
+    AppDelegate *appDelegate;
 }
 @end
 
@@ -39,12 +41,10 @@
     self.title = @"Ryo's Favorite";
     
     currentIndex = -1;
-    nextIndex = -1;
     songs = [[NSMutableArray alloc] init];
-    currentAudioPlayer = NULL;
-    loadingView = [[LoadingView alloc] initWithFrame:self.view.frame];
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(nowPlaying:) userInfo:nil repeats:YES ];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(nowPlaying:) userInfo:nil repeats:YES ];
     [timer fire];
     
     NSString *apiUrl = @"https://rails-grooveshark-app.herokuapp.com/favorites";
@@ -53,36 +53,36 @@
     connectionForGetSongs = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+- (void)connection:(NSURLConnection *)_connection didReceiveResponse:(NSURLResponse *)_response;
 {
-    NSLog(@"Receive Response");
-    data = [[NSMutableData alloc] initWithData:0];
+    NSLog(@"Received Response");
+    if (_connection == connectionForGetSongs) {
+        dataForGetSongs = [[NSMutableData alloc] initWithData:0];
+    } else if (_connection == connectionForPlaySong) {
+        dataForPlaySong = [[NSMutableData alloc] initWithData:0];
+        [appDelegate removeLoadingView];
+    }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)_data;
+- (void)connection:(NSURLConnection *)_connection didReceiveData:(NSData *)_data;
 {
-    NSLog(@"Receive Data");
-	[data appendData:_data];
+    if (_connection == connectionForGetSongs) {
+        [dataForGetSongs appendData:_data];
+    } else if (_connection == connectionForPlaySong) {
+        [dataForPlaySong appendData:_data];
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection;
 {
+    NSLog(@"Finish Load Song");
     if (_connection == connectionForGetSongs) {
-        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *jsonString = [[NSString alloc] initWithData:dataForGetSongs encoding:NSUTF8StringEncoding];
         NSData *jsonData = [jsonString dataUsingEncoding:NSUnicodeStringEncoding];
         songs = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingAllowFragments error:nil];
         [self.tableView reloadData];
     } else if (_connection == connectionForPlaySong) {
-        NSLog(@"Finish Load Song");
-        nextAudioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
-        [nextAudioPlayer prepareToPlay];
-        if (currentAudioPlayer == NULL) {
-            [loadingView removeFromSuperview];
-            self.tableView.scrollEnabled = YES;
-            
-            currentAudioPlayer = nextAudioPlayer;
-            [currentAudioPlayer play];
-        }
+        duration = (int)appDelegate.currentAudioPlayer.duration;
     }
 }
 
@@ -116,56 +116,60 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == currentIndex) {
-        if (currentAudioPlayer.playing == NO) {
-            [currentAudioPlayer play];
-        } else {
-            [currentAudioPlayer pause];
-        }
-    } else {
-        currentIndex = indexPath.row;
-        if (currentAudioPlayer != NULL) {
-            [currentAudioPlayer stop];
-            currentAudioPlayer = NULL;
-        }
-        [self playSong:currentIndex];
-        
-        [self.tableView addSubview:loadingView];
-        self.tableView.scrollEnabled = NO;
-    }
+    currentIndex = indexPath.row;
+    [self selectSong:currentIndex];
+    [appDelegate addLoadingView];
 }
 
-- (void)playSong:(NSInteger)index
+- (void)selectSong:(NSInteger)index
 {
+    dataForPlaySong = [[NSMutableData alloc] initWithData:0];
+    [connectionForPlaySong cancel];
+    [appDelegate.currentAudioPlayer stop];
+    appDelegate.currentAudioPlayer = [[AVAudioPlayer alloc] initWithData:dataForPlaySong error:nil];
+        
     NSDictionary *song = [[NSDictionary alloc] initWithDictionary:[songs objectAtIndex:index]];
+    appDelegate.currentSong = song;
     NSString *songID = [song valueForKey:@"songID"];
-    //    NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
     NSString *songURL = [NSString stringWithFormat:@"https://rails-grooveshark-app.herokuapp.com/songs/%@", songID];
     songURL = [songURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@", songURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:songURL]];
     connectionForPlaySong = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+}
+
+- (void)nextSong
+{
+    currentIndex = currentIndex + 1;
+    [self selectSong:currentIndex];
 }
 
 - (void)nowPlaying:(NSTimer *)timer
 {
-    if (currentAudioPlayer.playing == YES) {
-        NSInteger current = (int)currentAudioPlayer.currentTime;
-        NSInteger remain = (int)(currentAudioPlayer.duration - currentAudioPlayer.currentTime);
-        NSLog(@"Current: %i - Remain : %i", current, remain);
-        if (remain < 60 & nextIndex != currentIndex + 1) {
-            nextIndex = currentIndex + 1;
-            [self playSong:nextIndex];
-        }
-        if (remain == 0) {
-            [currentAudioPlayer stop];
-            currentAudioPlayer = nextAudioPlayer;
-            [currentAudioPlayer play];
-        }
-    } else {
-        NSLog(@"Timer Running");
+    NSInteger current = (int)appDelegate.currentAudioPlayer.currentTime;
+    NSInteger remain = (int)(appDelegate.currentAudioPlayer.duration - appDelegate.currentAudioPlayer.currentTime);
+    NSLog(@"Current: %i - Remain : %i", current, remain);
+    if (duration > 0 & current == duration) {
+        [self nextSong];
+    }
+    if (current == 0 & appDelegate.currentAudioPlayer.playing == NO) {
+        appDelegate.currentAudioPlayer = [[AVAudioPlayer alloc] initWithData:dataForPlaySong error:nil];
+        [appDelegate.currentAudioPlayer prepareToPlay];
+        [appDelegate.currentAudioPlayer play];
     }
 }
+
+- (void)controllSong:(UIBarButtonItem *)buttonItem
+{
+    if (appDelegate.currentAudioPlayer.playing == YES) {
+        [appDelegate.currentAudioPlayer pause];
+    } else {
+        [appDelegate.currentAudioPlayer play];
+    }
+    
+}
+
 
 /*
 // Override to support rearranging the table view.
@@ -187,11 +191,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *song = songs[indexPath.row];
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSDictionary *song = songs[currentIndex];
+        NSLog(@"%@", song);
         [[segue destinationViewController] setDetailItem:song];
     }
 }
-*/
+*/ 
  
 @end
