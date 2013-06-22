@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "LoadingView.h"
 
 @interface MasterViewController : UITableViewController <AVAudioPlayerDelegate, AVAudioSessionDelegate>
 
-- (void)nextSong;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *playAllButton;
 
 @end

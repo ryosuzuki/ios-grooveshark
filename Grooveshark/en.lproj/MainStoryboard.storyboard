@@ -58,12 +58,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="Meh-ts-zAG">
+                        <barButtonItem key="leftBarButtonItem" title="Play All" id="TZD-tG-Aa3"/>
                         <barButtonItem key="rightBarButtonItem" title="Playing" id="iZj-cd-yPr">
                             <connections>
                                 <segue destination="21" kind="push" id="Okw-4m-HDp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="playAllButton" destination="TZD-tG-Aa3" id="Edy-vo-bNq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,7 +76,7 @@
         <!--Detail View Controller - Detail-->
         <scene sceneID="24">
             <objects>
-                <viewController storyboardIdentifier="" title="Detail" id="21" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" title="Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="21" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -131,11 +135,28 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcL-j5-q0w">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="253" id="twd-Uq-IPh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Queue">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="mGf-wX-gFe" kind="push" id="6us-oS-AUM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sJa-iU-xF7" firstAttribute="baseline" secondItem="3DJ-St-owu" secondAttribute="baseline" type="default" id="0dK-uE-bcO"/>
                             <constraint firstAttribute="trailing" secondItem="7aE-6n-JLB" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="1LJ-ic-jyH"/>
+                            <constraint firstItem="ZcL-j5-q0w" firstAttribute="trailing" secondItem="sJa-iU-xF7" secondAttribute="trailing" type="default" id="3N8-Jo-CtW"/>
                             <constraint firstItem="7aE-6n-JLB" firstAttribute="top" secondItem="22" secondAttribute="top" constant="32" id="6wB-qS-JdH"/>
                             <constraint firstAttribute="bottom" secondItem="pKX-HF-D5W" secondAttribute="bottom" constant="142" id="94B-bg-hPp"/>
                             <constraint firstItem="pKX-HF-D5W" firstAttribute="baseline" secondItem="3DJ-St-owu" secondAttribute="baseline" type="default" id="EWy-oa-vgc"/>
@@ -145,12 +166,13 @@
                             <constraint firstItem="3DJ-St-owu" firstAttribute="centerX" secondItem="vsx-gt-Jtk" secondAttribute="centerX" type="default" id="Lli-Jg-2Fe"/>
                             <constraint firstItem="cF4-8y-2Ec" firstAttribute="top" secondItem="22" secondAttribute="top" constant="86" id="PJO-Tq-k9r"/>
                             <constraint firstItem="vsx-gt-Jtk" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Wys-rc-Pcb"/>
+                            <constraint firstAttribute="bottom" secondItem="ZcL-j5-q0w" secondAttribute="bottom" constant="25" id="cwN-QC-N9H"/>
                             <constraint firstItem="vsx-gt-Jtk" firstAttribute="top" secondItem="22" secondAttribute="top" constant="197" id="dEG-IQ-zE3"/>
                             <constraint firstItem="SYf-YT-JjF" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="gca-jv-0Eh"/>
                             <constraint firstAttribute="trailing" secondItem="SYf-YT-JjF" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mbH-aN-GCx"/>
                             <constraint firstAttribute="trailing" secondItem="cF4-8y-2Ec" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="nUh-vl-L0X"/>
                             <constraint firstAttribute="trailing" secondItem="vsx-gt-Jtk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="q0d-vU-AQ8"/>
-                            <constraint firstAttribute="trailing" secondItem="sJa-iU-xF7" secondAttribute="trailing" constant="34" id="vjt-vk-CcR"/>
+                            <constraint firstItem="pKX-HF-D5W" firstAttribute="leading" secondItem="ZcL-j5-q0w" secondAttribute="leading" type="default" id="qYV-IU-msN"/>
                             <constraint firstItem="7aE-6n-JLB" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="w8X-Qe-Cf0"/>
                         </constraints>
                     </view>
@@ -162,6 +184,7 @@
                         <outlet property="nextButton" destination="sJa-iU-xF7" id="qhn-Rp-eS4"/>
                         <outlet property="pauseButton" destination="3DJ-St-owu" id="JK9-4g-1zv"/>
                         <outlet property="prevButton" destination="pKX-HF-D5W" id="waa-EJ-jNN"/>
+                        <outlet property="queueButton" destination="ZcL-j5-q0w" id="Eo3-Hj-0aC"/>
                         <outlet property="songName" destination="7aE-6n-JLB" id="bmv-PT-724"/>
                     </connections>
                 </viewController>
@@ -169,13 +192,79 @@
             </objects>
             <point key="canvasLocation" x="876" y="64"/>
         </scene>
+        <!--Queue View Controller - Queue-->
+        <scene sceneID="kym-ga-6Wo">
+            <objects>
+                <tableViewController storyboardIdentifier="QueueViewController" title="Queue" id="mGf-wX-gFe" customClass="QueueViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SOz-7D-oFo">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="BZZ-Oc-3YD" style="IBUITableViewCellStyleDefault" id="w8B-ZR-fxK">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZZ-Oc-3YD">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mGf-wX-gFe" id="H0g-6u-fFq"/>
+                            <outlet property="delegate" destination="mGf-wX-gFe" id="Lex-X1-BKh"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="foy-Kn-XEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1290" y="69"/>
+        </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="albumName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="artistName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="current" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pauseButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="prevButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="queueButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="songName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="playAllButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="QueueViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QueueViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bAs-MU-fWf"/>
+        <segue reference="Okw-4m-HDp"/>
     </inferredMetricsTieBreakers>
 </document>

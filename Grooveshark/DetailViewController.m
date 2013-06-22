@@ -11,7 +11,8 @@
 #import "AppDelegate.h"
 #import "MasterViewController.h"
 
-@interface DetailViewController () {
+@interface DetailViewController ()
+{
     AppDelegate *appDelegate;
 }
 @end
@@ -53,6 +54,7 @@
     
 }
 
+
 - (void)pauseButtonTapped:(id)sender
 {
     if (appDelegate.currentAudioPlayer.playing == YES) {
@@ -71,8 +73,7 @@
 
 - (void)nextButtonTapped:(id)sender
 {
-    MasterViewController *masterViewController = [[MasterViewController alloc] init];
-    [masterViewController nextSong];
+    [appDelegate playNextSong];
 }
 
 - (void)nowPlaying:(NSTimer *)timer
@@ -85,6 +86,9 @@
     self.songName.text = [song valueForKey:@"songName"];
     self.artistName.text = [song valueForKey:@"artistName"];
     self.albumName.text = [song valueForKey:@"albumName"];
+    
+    [self.queueButton setTitle:[NSString stringWithFormat:@"Queue %i Songs", appDelegate.queueList.count] forState:UIControlStateNormal];
+
 }
 
 
