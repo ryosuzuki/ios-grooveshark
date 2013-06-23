@@ -57,18 +57,17 @@
 
 - (void)pauseButtonTapped:(id)sender
 {
-    if (appDelegate.currentAudioPlayer.playing == YES) {
-        [appDelegate.currentAudioPlayer pause];
-        [self.pauseButton setTitle:@"Play" forState:UIControlStateNormal];
-    } else {
-        [appDelegate.currentAudioPlayer play];
+    [appDelegate playAndPauseSong];
+    if (appDelegate.nowPlaying == YES) {
         [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+    } else {
+        [self.pauseButton setTitle:@"Play" forState:UIControlStateNormal];
     }
 }
 
 - (void)prevButtonTapped:(id)sender
 {
-    appDelegate.currentAudioPlayer.currentTime = 0;
+    [appDelegate playPrevSong];
 }
 
 - (void)nextButtonTapped:(id)sender

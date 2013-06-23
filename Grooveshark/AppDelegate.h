@@ -15,8 +15,9 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, AVAudioPlayerDelegate, AVAudioSessionDelegate>
 {
-    NSInteger duration;
-    
+    NSTimeInterval duration;
+    NSTimeInterval current;
+
     NSURLConnection *connectionForPlaySong;
     NSMutableData *dataForPlaySong;
 
@@ -28,6 +29,8 @@
 @property (nonatomic, retain) AVAudioPlayer *currentAudioPlayer;
 @property (nonatomic, retain) NSDictionary *currentSong;
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) BOOL nowPlaying;
+
 @property (nonatomic, retain) NSMutableArray *queueList;
 @property (nonatomic, retain) LoadingView *loadingView;
 
@@ -35,6 +38,8 @@
 - (void)removeLoadingView;
 - (void)addSongsToQueue:(NSArray *)songs;
 - (void)playNextSong;
+- (void)playPrevSong;
+- (void)playAndPauseSong;
 - (void)playSelectedSong:(NSInteger)index;
 
 @end

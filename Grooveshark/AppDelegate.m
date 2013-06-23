@@ -16,6 +16,7 @@
 {
     self.queueList = [[NSMutableArray alloc] initWithObjects:nil];
     self.currentIndex = -1;
+    self.nowPlaying = NO;
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(nowPlaying:) userInfo:nil repeats:YES ];
     [timer fire];
@@ -96,7 +97,7 @@
 {
     NSLog(@"Finish Load Song");
     if (_connection == connectionForPlaySong) {
-        duration = (int)self.currentAudioPlayer.duration;
+        duration = self.currentAudioPlayer.duration;
     }
 }
 
@@ -117,7 +118,10 @@
         [connectionForPlaySong cancel];
         [self.currentAudioPlayer stop];
         self.currentAudioPlayer = [[AVAudioPlayer alloc] initWithData:dataForPlaySong error:nil];
+        current = 0.0f;
+        duration = 0.0f;
         self.currentIndex = index;
+        self.nowPlaying = YES;
 
         NSDictionary *song = [[NSDictionary alloc] initWithDictionary:[self.queueList objectAtIndex:index]];
         self.currentSong = song;
@@ -131,25 +135,51 @@
     }
 }
 
+- (void)playAndPauseSong
+{
+    if (self.currentAudioPlayer.playing == YES) {
+        [self.currentAudioPlayer pause];
+        self.nowPlaying = NO;
+    } else {
+        [self.currentAudioPlayer play];
+        self.nowPlaying = YES;
+    }
+}
+
+- (void)playPrevSong
+{
+    if (self.currentAudioPlayer.currentTime > 10) {
+        self.currentAudioPlayer.currentTime = 0;
+    } else {
+        [self playSelectedSong:self.currentIndex - 1];
+    }
+}
+
 - (void)playNextSong
 {
-    NSLog(@"HOGE %i", self.currentIndex + 1);
     [self playSelectedSong:self.currentIndex + 1];
 }
 
 - (void)nowPlaying:(NSTimer *)timer
 {
-    NSInteger current = (int)self.currentAudioPlayer.currentTime;
-    NSInteger remain = (int)(self.currentAudioPlayer.duration - self.currentAudioPlayer.currentTime);
-    NSLog(@"Current: %i - Remain : %i", current, remain);
-    if (duration > 0 & current == duration) {
-        [self playSelectedSong:self.currentIndex + 1];
+    NSTimeInterval _current = self.currentAudioPlayer.currentTime;
+    NSTimeInterval remain = self.currentAudioPlayer.duration - current;
+    NSLog(@"Current: %f - Remain : %f", current, remain);
+
+    if (current < _current) {
+        current = _current;
     }
-    if (current == 0 & self.currentAudioPlayer.playing == NO) {
+    
+    if (self.currentAudioPlayer.playing == NO & self.nowPlaying == YES) {
         self.currentAudioPlayer = [[AVAudioPlayer alloc] initWithData:dataForPlaySong error:nil];
         [self.currentAudioPlayer prepareToPlay];
-        [self.currentAudioPlayer play];
+        self.currentAudioPlayer.currentTime = current;
+        [self.currentAudioPlayer play];        
     }
+    
+    if ((int)current == (int)duration & duration > 0) {
+        [self playSelectedSong:self.currentIndex + 1];
+    }    
 }
 
 - (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
@@ -157,14 +187,10 @@
     if (receivedEvent.type == UIEventTypeRemoteControl) {
         switch (receivedEvent.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
-                if (self.currentAudioPlayer.playing == YES) {
-                    [self.currentAudioPlayer pause];
-                } else {
-                    [self.currentAudioPlayer play];
-                }
+                [self playAndPauseSong];
                 break;
             case UIEventSubtypeRemoteControlPreviousTrack:
-                self.currentAudioPlayer.currentTime = 0.0;
+                [self playPrevSong];
                 break;
             case UIEventSubtypeRemoteControlNextTrack:
                 [self playNextSong];

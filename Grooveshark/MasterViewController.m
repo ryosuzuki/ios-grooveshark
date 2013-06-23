@@ -47,7 +47,7 @@
 
     
     NSString *apiUrl = @"https://rails-grooveshark-app.herokuapp.com/favorites";
-    apiUrl = @"https://rails-grooveshark-app.herokuapp.com/songs";
+//    apiUrl = @"https://rails-grooveshark-app.herokuapp.com/songs";
     NSURL *url = [NSURL URLWithString: apiUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     connectionForGetSongs = [[NSURLConnection alloc] initWithRequest:request delegate:self];
